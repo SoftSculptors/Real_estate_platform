@@ -1,4 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Real Estate NL Platform
+
+Een moderne vastgoed website gebouwd met Next.js, Tailwind CSS, en Supabase.
+
+## Features
+
+- Modern en responsief design
+- Uitgebreide woningzoeker
+- Gedetailleerde woningpagina's
+- Contact formulier
+- Supabase integratie voor data opslag
+
+## Technische Stack
+
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Supabase
+- React Icons
+
+## Installatie
+
+1. Clone de repository:
+```bash
+git clone [repository-url]
+cd real-estate-platform
+```
+
+2. Installeer dependencies:
+```bash
+npm install
+```
+
+3. Configureer environment variables:
+Maak een `.env.local` bestand aan met de volgende variabelen:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. Start de development server:
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in je browser.
+
+## Database Schema
+
+De Supabase database bevat de volgende tabellen:
+
+### Properties
+- id: uuid (primary key)
+- title: string
+- description: text
+- price: number
+- address: string
+- city: string
+- postal_code: string
+- square_meters: number
+- bedrooms: number
+- bathrooms: number
+- features: string[]
+- images: string[]
+- property_type: enum (apartment, house, villa, penthouse)
+- status: enum (for_sale, sold, reserved)
+- created_at: timestamp
+- updated_at: timestamp
 
 ## Getting Started
 
