@@ -2,55 +2,55 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-sky-50 to-white py-12 pt-28">
+    <main className="min-h-screen bg-[#FFFDF6] pt-28">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-slate-800 mb-4">Contact</h1>
-          <p className="text-lg text-slate-600 mb-8">Laat uw Spaanse dromen werkelijkheid worden</p>
+          <h1 className="text-4xl font-bold text-[#5B3924] mb-4">Contact</h1>
+          <p className="text-lg text-[#2F2F2F] mb-8">Laat uw Spaanse dromen werkelijkheid worden</p>
           
           <div className="bg-white rounded-xl shadow-sm p-8 mb-8 hover:shadow-md transition-shadow">
-            <h2 className="text-2xl font-semibold text-slate-800 mb-6">Neem contact met ons op</h2>
+            <h2 className="text-2xl font-semibold text-[#5B3924] mb-6">Neem contact met ons op</h2>
             
             <form className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
+                <label htmlFor="name" className="block text-sm font-medium text-[#2F2F2F] mb-1">
                   Naam
                 </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
+                  className="w-full px-4 py-2 border border-[#E6D4A8] rounded-lg focus:ring-2 focus:ring-[#F5C242] focus:border-transparent transition-colors"
                 />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-[#2F2F2F] mb-1">
                   E-mailadres
                 </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
+                  className="w-full px-4 py-2 border border-[#E6D4A8] rounded-lg focus:ring-2 focus:ring-[#F5C242] focus:border-transparent transition-colors"
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-1">
+                <label htmlFor="message" className="block text-sm font-medium text-[#2F2F2F] mb-1">
                   Bericht
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   rows={4}
-                  className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
+                  className="w-full px-4 py-2 border border-[#E6D4A8] rounded-lg focus:ring-2 focus:ring-[#F5C242] focus:border-transparent transition-colors"
                 ></textarea>
               </div>
               
               <button
                 type="submit"
-                className="w-full bg-cyan-600 text-white py-3 px-4 rounded-lg hover:bg-cyan-700 transition-colors font-medium"
+                className="w-full bg-[#F5C242] text-[#5B3924] px-6 py-3 rounded-lg hover:bg-[#E6D4A8] transition-colors font-medium"
               >
                 Verstuur bericht
               </button>

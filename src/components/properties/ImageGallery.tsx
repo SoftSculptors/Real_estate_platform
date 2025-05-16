@@ -43,10 +43,10 @@ export default function ImageGallery({ images, title }: ImageGalleryProps) {
             {currentImageIndex > 0 && (
               <button
                 onClick={() => setCurrentImageIndex(i => i - 1)}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg transition-all hover:scale-110"
+                className="absolute top-1/2 -translate-y-1/2 left-4 bg-[#FFFDF6]/80 hover:bg-[#FFFDF6] text-[#5B3924] p-2 rounded-full shadow-lg transition-colors hover:scale-110"
                 aria-label="Vorige foto"
               >
-                <svg className="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-[#5B3924]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
@@ -54,10 +54,10 @@ export default function ImageGallery({ images, title }: ImageGalleryProps) {
             {currentImageIndex < images.length - 1 && (
               <button
                 onClick={() => setCurrentImageIndex(i => i + 1)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg transition-all hover:scale-110"
+                className="absolute top-1/2 -translate-y-1/2 right-4 bg-[#FFFDF6]/80 hover:bg-[#FFFDF6] text-[#5B3924] p-2 rounded-full shadow-lg transition-colors hover:scale-110"
                 aria-label="Volgende foto"
               >
-                <svg className="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-[#5B3924]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
@@ -72,11 +72,7 @@ export default function ImageGallery({ images, title }: ImageGalleryProps) {
             <button
               key={image.id}
               onClick={() => setCurrentImageIndex(index)}
-              className={`relative aspect-[4/3] overflow-hidden rounded-lg transition-all ${
-                index === currentImageIndex 
-                  ? 'ring-2 ring-cyan-500 ring-offset-2' 
-                  : 'opacity-70 hover:opacity-100'
-              }`}
+              className={`relative aspect-[16/9] overflow-hidden rounded-lg ${currentImageIndex === index ? 'ring-2 ring-[#F5C242]' : 'hover:ring-2 hover:ring-[#E6D4A8]'} transition-all`}
             >
               <img
                 src={image.url}
