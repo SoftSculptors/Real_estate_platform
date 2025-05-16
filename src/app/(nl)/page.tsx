@@ -1,46 +1,14 @@
 import Link from 'next/link';
-import { FaSearch, FaMapMarkerAlt, FaBed, FaBath, FaRuler } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaBed, FaBath, FaRuler } from 'react-icons/fa';
 import { supabase } from '@/lib/supabase';
-
-interface PropertyTitle {
-  language: string;
-  title: string;
-}
-
-interface PropertyImage {
-  url: string;
-}
-
-interface Property {
-  id: string;
-  title: string;
-  image: string;
-  new_build: boolean;
-  town: string;
-  province: string;
-  beds: number;
-  baths: number;
-  built_area: number;
-  price: number;
-  property_titles: PropertyTitle[];
-  property_images: PropertyImage[];
-}
-
-type RawProperty = Omit<Property, 'title' | 'image'> & {
-  property_titles: PropertyTitle[];
-  property_images: PropertyImage[];
-};
+import SearchBar from '@/components/home/SearchBar';
+import { Property } from '@/types/property';
 
 async function getFeaturedProperties(): Promise<Property[]> {
   try {
-    console.log('Fetching featured properties...');
     const { data, error } = await supabase
       .from('properties')
-      .select(`
-        *,
-        property_titles (language, title),
-        property_images (url)
-      `)
+      .select('*')
       .eq('featured', true)
       .limit(6);
 
@@ -49,15 +17,9 @@ async function getFeaturedProperties(): Promise<Property[]> {
       return [];
     }
 
-    console.log('Fetched data:', data);
     if (!data) return [];
 
-    return data.map((property: RawProperty) => ({
-      ...property,
-      title: property.property_titles?.find((t: PropertyTitle) => t.language === 'nl')?.title || 
-             property.property_titles?.find((t: PropertyTitle) => t.language === 'en')?.title || '',
-      image: property.property_images?.[0]?.url || ''
-    }));
+    return data;
   } catch (error) {
     console.error('Error fetching properties:', error);
     return [];
@@ -70,39 +32,23 @@ export default async function Home() {
   return (
     <main className="min-h-screen flex-grow pt-28 bg-[#FFFDF6]">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center bg-cover bg-center" 
-               style={{ backgroundImage: 'url(/images/7a1ab23b-9d83-43ee-8737-45cf5649cc08.jpg)', backgroundPosition: 'center' }}>
-        <div className="absolute inset-0 bg-[#5B3924]/40"></div>
-        <div className="relative text-center text-white space-y-6 px-4">
-          <h1 className="text-5xl md:text-6xl font-bold">
-            Vind Uw Droomhuis in Spanje
+      <section className="relative h-[80vh] flex items-center justify-center" style={{
+        backgroundImage: "url('/images/7a1ab23b-9d83-43ee-8737-45cf5649cc08.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}>
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="relative z-10 container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            Ontdek Uw Droomhuis in Spanje
           </h1>
-          <p className="text-xl md:text-2xl text-sky-100">
-            Ontdek prachtige woningen aan de Spaanse kust
+          <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
+            Van moderne appartementen aan de kust tot luxe villa's met zeezicht
           </p>
           
           {/* Search Bar */}
-          <div className="max-w-3xl mx-auto mt-8">
-            <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
-              <form className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1">
-                  <div className="relative">
-                    <FaSearch className="absolute left-4 top-3.5 text-slate-400" />
-                    <input
-                      type="text"
-                      placeholder="Zoek op locatie of type woning..."
-                      className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
-                    />
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="bg-[#F5C242] text-[#5B3924] px-8 py-3 rounded-lg hover:bg-[#E6D4A8] transition-colors font-medium md:w-auto w-full"
-                >
-                  Zoeken
-                </button>
-              </form>
-            </div>
+          <div className="max-w-4xl mx-auto">
+            <SearchBar />
           </div>
         </div>
       </section>
@@ -110,71 +56,59 @@ export default async function Home() {
       {/* Featured Properties */}
       <section className="py-16 bg-[#FFFDF6]">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#5B3924] mb-4">Uitgelichte Woningen</h2>
-            <p className="text-lg text-slate-600">Ontdek onze selectie van de mooiste properties in Spanje</p>
-          </div>
-
+          <h2 className="text-3xl font-bold text-[#5B3924] text-center mb-12">
+            Uitgelichte Woningen
+          </h2>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {properties.map((property) => (
-              <Link 
-                href={`/properties/${property.id}`} 
-                key={property.id}
-                className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                <div className="relative aspect-[4/3] rounded-t-xl overflow-hidden">
-                  <img
-                    src={property.image || '/placeholder.jpg'}
-                    alt={property.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  {property.new_build && (
-                    <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                      Nieuwbouw
-                    </div>
-                  )}
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-[#5B3924] group-hover:text-[#F5C242] transition-colors mb-2">
-                    {property.title}
-                  </h3>
-                  <p className="flex items-center text-[#2F2F2F] mb-4">
-                    <FaMapMarkerAlt className="w-4 h-4 text-orange-400 mr-2" />
-                    {property.town}, {property.province}
-                  </p>
-                  <div className="flex items-center justify-between text-slate-600">
-                    <div className="flex space-x-4">
-                      <span className="flex items-center">
-                        <FaBed className="w-4 h-4 mr-2 text-summer-500" />
-                        {property.beds}
+              <Link href={`/properties/${property.id}`} key={property.id} className="group">
+                <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                  <div className="relative pt-[66.67%] overflow-hidden">
+                    <img
+                      src={property.images[0]?.url || '/placeholder.jpg'}
+                      alt={property.titles['nl'] || property.titles['en'] || ''}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    {property.new_build && (
+                      <span className="absolute top-4 right-4 bg-[#F5C242] text-[#5B3924] px-3 py-1 rounded-full text-sm font-medium">
+                        Nieuwbouw
                       </span>
-                      <span className="flex items-center">
-                        <FaBath className="w-4 h-4 mr-2 text-summer-500" />
-                        {property.baths}
-                      </span>
-                      <span className="flex items-center">
-                        <FaRuler className="w-4 h-4 mr-2 text-summer-500" />
-                        {property.built_area}m²
-                      </span>
-                    </div>
+                    )}
                   </div>
-                  <div className="mt-4 pt-4 border-t border-slate-100">
-                    <p className="text-2xl font-semibold text-[#F5C242]">
+                  
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-[#5B3924] mb-2 group-hover:text-[#F5C242] transition-colors">
+                      {property.titles['nl'] || property.titles['en'] || ''}
+                    </h3>
+                    
+                    <div className="flex items-center text-slate-600 mb-4">
+                      <FaMapMarkerAlt className="mr-2" />
+                      <span>{property.town}, {property.province}</span>
+                    </div>
+                    
+                    <div className="grid grid-cols-3 gap-4 text-slate-600 mb-4">
+                      <div className="flex items-center">
+                        <FaBed className="mr-2" />
+                        <span>{property.beds}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <FaBath className="mr-2" />
+                        <span>{property.baths}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <FaRuler className="mr-2" />
+                        <span>{property.built_area}m²</span>
+                      </div>
+                    </div>
+                    
+                    <div className="text-xl font-bold text-[#5B3924]">
                       €{property.price.toLocaleString()}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </Link>
             ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link 
-              href="/properties"
-              className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-orange-500 text-white hover:bg-orange-600 transition-colors font-medium"
-            >
-              Bekijk Alle Woningen
-            </Link>
           </div>
         </div>
       </section>
