@@ -71,7 +71,7 @@ export default async function Home() {
     <main className="min-h-screen flex-grow pt-28 bg-[#FFFDF6]">
       {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center justify-center bg-cover bg-center" 
-               style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2080)' }}>
+               style={{ backgroundImage: 'url(/images/7a1ab23b-9d83-43ee-8737-45cf5649cc08.jpg)', backgroundPosition: 'center' }}>
         <div className="absolute inset-0 bg-[#5B3924]/40"></div>
         <div className="relative text-center text-white space-y-6 px-4">
           <h1 className="text-5xl md:text-6xl font-bold">
