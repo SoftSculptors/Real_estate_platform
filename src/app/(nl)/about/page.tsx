@@ -2,7 +2,7 @@ import { FaAward, FaHandshake, FaHeart } from 'react-icons/fa';
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-sky-50 to-white py-12 pt-28">
+    <main className="min-h-screen bg-[#FFFDF6] py-12 pt-28">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-slate-800 mb-4">Over Ons</h1>
