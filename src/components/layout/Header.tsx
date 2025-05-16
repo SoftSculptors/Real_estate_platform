@@ -9,33 +9,33 @@ import MobileMenu from './MobileMenu';
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
-    <header className="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
+    <header className="fixed w-full bg-[#FFFDF6]/90 backdrop-blur-sm shadow-sm z-50 border-b border-[#E6D4A8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link href="/" className="flex items-center space-x-2">
             <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
-              className="text-2xl font-bold text-gray-900"
+              className="text-2xl font-bold text-[#5B3924]"
             >
               Real Estate NL
             </motion.div>
           </Link>
 
           <nav className="hidden md:flex space-x-8">
-            <Link href="/properties" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <Link href="/properties" className="text-[#2F2F2F] hover:text-[#F5C242] transition-colors">
               Woningen
             </Link>
-            <Link href="/about" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <Link href="/about" className="text-[#2F2F2F] hover:text-[#F5C242] transition-colors">
               Over Ons
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <Link href="/contact" className="text-[#2F2F2F] hover:text-[#F5C242] transition-colors">
               Contact
             </Link>
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
-            <a href="tel:+31612345678" className="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
+            <a href="tel:+31612345678" className="flex items-center space-x-2 text-[#2F2F2F] hover:text-[#F5C242]">
               <FaPhone className="h-4 w-4" />
               <span>+31 6 1234 5678</span>
             </a>

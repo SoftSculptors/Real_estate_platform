@@ -8,17 +8,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f8f9fa',
-          100: '#f1f3f5',
-          200: '#e9ecef',
-          300: '#dee2e6',
-          400: '#ced4da',
-          500: '#adb5bd',
-          600: '#868e96',
-          700: '#495057',
-          800: '#343a40',
-          900: '#212529',
+        estate: {
+          sand: '#FFFDF6',    // Achtergrond
+          honey: '#F5C242',    // Hoofdkleur
+          gold: '#E6D4A8',     // Accentkleur
+          earth: '#5B3924',    // Contrastkleur
+          text: '#2F2F2F',     // Tekst
         },
       },
       maxWidth: {

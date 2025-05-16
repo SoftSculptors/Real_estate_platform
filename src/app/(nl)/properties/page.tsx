@@ -46,7 +46,7 @@ export default async function PropertiesPage({ searchParams }: { searchParams: {
         <main className="container mx-auto px-4 py-8 pt-20">
           <h1 className="text-3xl font-bold mb-8">Woningen</h1>
           <div className="text-center py-12">
-            <p className="text-xl text-gray-600">
+            <p className="text-lg text-[#2F2F2F]">
               Geen woningen gevonden
             </p>
           </div>
@@ -74,17 +74,17 @@ export default async function PropertiesPage({ searchParams }: { searchParams: {
     const showingEnd = Math.min(end + 1, totalCount || 0);
 
     return (
-      <main className="min-h-screen bg-gradient-to-b from-sky-50 to-white pt-28">
+      <main className="min-h-screen bg-[#FFFDF6] pt-28">
         <div className="container mx-auto px-4 py-12">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-slate-800 mb-4">Woningen in Spanje</h1>
+            <h1 className="text-4xl font-bold text-[#5B3924] mb-4">Woningen in Spanje</h1>
             <p className="text-slate-600 text-lg max-w-2xl mx-auto">
               Ontdek uw droomhuis onder de Spaanse zon, van moderne appartementen aan de kust tot luxe villa's met zeezicht.
             </p>
           </div>
 
           <div className="flex justify-end mb-6">
-            <p className="summer-tag bg-cyan-100 text-cyan-700">
+            <p className="summer-tag bg-[#E6D4A8] text-[#5B3924]">
               {showingStart}-{showingEnd} van {totalCount} woningen
             </p>
           </div>

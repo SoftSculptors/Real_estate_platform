@@ -57,7 +57,7 @@ export default async function PropertyDetailPage({ params }: { params: { id: str
   const priceLabel = property.price_freq === 'sale' ? 'Te Koop' : 'Te Huur';
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-sky-50 to-white py-8 pt-28">
+    <main className="min-h-screen bg-[#FFFDF6] py-8 pt-28">
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -69,10 +69,10 @@ export default async function PropertyDetailPage({ params }: { params: { id: str
             {/* Property Details */}
             <div className="space-y-6">
               <div>
-                <h1 className="text-3xl font-bold text-slate-800 mb-2">
+                <h1 className="text-4xl font-bold text-[#5B3924] mb-4">
                   {title}
                 </h1>
-                <p className="text-2xl font-semibold text-cyan-600 mb-2">
+                <p className="text-2xl font-semibold text-[#F5C242] mb-2">
                   {formatPrice(property.price, property.currency)}
                 </p>
                 <p className="text-lg text-orange-500 font-medium">
@@ -81,7 +81,7 @@ export default async function PropertyDetailPage({ params }: { params: { id: str
                 </p>
               </div>
 
-              <div className="grid grid-cols-3 gap-4 text-center">
+              <div className="grid grid-cols-3 gap-4 text-[#2F2F2F]">
                 <div className="p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-center mb-2">
                     <FaBed className="w-6 h-6 text-cyan-500" />

@@ -47,7 +47,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
           />
           <div className="absolute top-4 right-4 z-10">
-            <span className="summer-tag bg-cyan-500 text-white">
+            <span className="summer-tag bg-[#F5C242] text-[#5B3924]">
               {priceLabel}
             </span>
           </div>
@@ -62,11 +62,11 @@ export default function PropertyCard({ property }: PropertyCardProps) {
         </div>
 
         <div className="p-6">
-          <h3 className="text-xl font-semibold mb-2 text-slate-800 group-hover:text-cyan-600 transition-colors">
+          <h3 className="text-xl font-semibold mb-2 text-[#5B3924] group-hover:text-[#F5C242] transition-colors">
             {title}
           </h3>
           
-          <p className="text-2xl font-bold text-cyan-600 mb-4">
+          <p className="text-2xl font-bold text-[#F5C242] mb-4">
             {formatPrice(property.price, property.currency)}
           </p>
           
@@ -75,17 +75,17 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             {property.town}, {property.province}
           </p>
 
-          <div className="flex items-center justify-between text-slate-600 bg-slate-50 p-3 rounded-lg">
+          <div className="flex items-center justify-between text-[#2F2F2F] bg-[#FFFDF6] p-3 rounded-lg">
             <div className="flex items-center space-x-2">
-              <FaBed className="w-4 h-4 text-cyan-500" />
+              <FaBed className="w-4 h-4 text-summer-500" />
               <span>{property.beds}</span>
             </div>
             <div className="flex items-center space-x-2">
-              <FaBath className="w-4 h-4 text-cyan-500" />
+              <FaBath className="w-4 h-4 text-summer-500" />
               <span>{property.baths}</span>
             </div>
             <div className="flex items-center space-x-2">
-              <FaRuler className="w-4 h-4 text-cyan-500" />
+              <FaRuler className="w-4 h-4 text-summer-500" />
               <span>{property.built_area}m²</span>
             </div>
           </div>
