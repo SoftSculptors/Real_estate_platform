@@ -1,19 +1,26 @@
-import { Property } from '@/types/property';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import Link from 'next/link';
+import { Property } from '@/types/property';
 import { supabase } from '@/lib/supabase';
 import PropertyCard from '@/components/properties/PropertyCard';
 import Filters from '@/components/properties/Filters';
+import { FaBed, FaBath, FaRulerCombined, FaEuroSign } from 'react-icons/fa';
+
+const ITEMS_PER_PAGE = 24;
 
 const PROPERTY_TYPES = [
   'Apartment',
   'Bungalow',
+  'Commercial',
+  'Detached Villa',
   'Penthouse',
   'Quad House',
+  'Semi-Detached',
   'Town House',
+  'Townhouse',
   'Villa'
 ] as const;
 
-// Dutch translations for property types
 const DUTCH_TRANSLATIONS: Record<string, string> = {
   'appartement': 'Apartment',
   'apartment': 'Apartment',
@@ -28,244 +35,197 @@ const DUTCH_TRANSLATIONS: Record<string, string> = {
   'villa': 'Villa'
 };
 
-export default async function PropertiesPage({ 
-  searchParams 
-}: { 
-  searchParams: { 
-    page?: string, 
-    q?: string,
-    type?: string,
-    province?: string,
-    costa?: string,
-    minPrice?: string,
-    maxPrice?: string,
-    minBeds?: string,
-    maxBeds?: string,
-    maxBeachDistance?: string,
-    sortBy?: string
-  } 
-}) {
+type SearchParams = {
+  page?: string;
+  q?: string;
+  type?: string;
+  province?: string;
+  costa?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  beds?: string;
+  sortBy?: string;
+};
+
+type ViewProperty = {
+  id: string;
+  price: number;
+  price_freq: 'sale' | 'month' | 'week';
+  type: string;
+  town: string;
+  province: string;
+  costa: string;
+  beds: number;
+  baths: number;
+  built_area: number;
+  property_titles: { language: string; title: string }[];
+  property_images: { url: string }[];
+};
+
+type QueryResult = {
+  propertiesData: ViewProperty[];
+  totalProperties?: number;
+  error: Error | null;
+  locations: {
+    provinces: string[];
+    costas: string[];
+  };
+};
+
+
+
+type ExtendedProperty = Property & {
+  titles: { language: string; title: string }[];
+  descriptions: { language: string; description: string }[];
+  features: { feature: string }[];
+  images: { url: string }[];
+};
+
+// Helper function to find property type matches
+function getPropertyTypeMatches(searchTerms: string[]): string[] {
+  return searchTerms
+    .map((term: string) => {
+      const normalizedTerm = term.toLowerCase().trim();
+      
+      // Direct match in translations
+      if (normalizedTerm in DUTCH_TRANSLATIONS) {
+        return DUTCH_TRANSLATIONS[normalizedTerm];
+      }
+      
+      // Direct match in property types
+      const directMatch = PROPERTY_TYPES.find(
+        type => type.toLowerCase() === normalizedTerm
+      );
+      if (directMatch) return directMatch;
+      
+      // Fuzzy match in translations
+      for (const [dutch, english] of Object.entries(DUTCH_TRANSLATIONS)) {
+        if (dutch.toLowerCase().includes(normalizedTerm) ||
+            english.toLowerCase().includes(normalizedTerm)) {
+          return english;
+        }
+      }
+      
+      // Fuzzy match in property types
+      for (const type of PROPERTY_TYPES) {
+        if (type.toLowerCase().includes(normalizedTerm)) {
+          return type;
+        }
+      }
+      
+      return null;
+    })
+    .filter((type): type is string => type !== null);
+}
+
+// Helper function to get properties with filters
+async function getProperties(params: SearchParams): Promise<QueryResult> {
   try {
-    const ITEMS_PER_PAGE = 24;
-    const currentPage = parseInt(searchParams.page || '1');
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE - 1;
-
-    // Get total count and unique locations
-    const [countResult, locationsResult] = await Promise.all([
-      supabase
-        .from('properties')
-        .select('id', { count: 'exact', head: true }),
-      supabase
-        .from('properties')
-        .select('province, costa')
-        .limit(1000)
-    ]);
-
-    const totalCount = countResult.count;
-    const uniqueLocations = locationsResult.data;
-
-    // Get properties for current page with pagination
-
-    // Build the query
     let query = supabase
       .from('properties')
       .select(`
-        *,
+        id,
+        price,
+        price_freq,
+        type,
+        town,
+        province,
+        costa,
+        beds,
+        baths,
+        built_area,
         property_titles (language, title),
-        property_descriptions (language, description),
         property_images (url)
       `);
 
-    // Apply filters
-    if (searchParams.type) {
-      query = query.eq('type', searchParams.type);
+    // Add filters based on search params
+    if (params.province) {
+      query = query.eq('province', params.province);
     }
-    if (searchParams.province) {
-      query = query.eq('province', searchParams.province);
-    }
-    if (searchParams.costa) {
-      query = query.eq('costa', searchParams.costa);
-    }
-    if (searchParams.minPrice) {
-      query = query.gte('price', parseInt(searchParams.minPrice));
-    }
-    if (searchParams.maxPrice) {
-      query = query.lte('price', parseInt(searchParams.maxPrice));
-    }
-    if (searchParams.minBeds) {
-      query = query.gte('beds', parseInt(searchParams.minBeds));
-    }
-    if (searchParams.maxBeds) {
-      query = query.lte('beds', parseInt(searchParams.maxBeds));
-    }
-    // Beach distance filtering removed until column is added
 
-    // Apply sorting
-    if (searchParams.sortBy) {
-      switch (searchParams.sortBy) {
-        case 'price_asc':
-          query = query.order('price', { ascending: true });
-          break;
-        case 'price_desc':
-          query = query.order('price', { ascending: false });
-          break;
-        case 'beds_asc':
-          query = query.order('beds', { ascending: true });
-          break;
-        case 'beds_desc':
-          query = query.order('beds', { ascending: false });
-          break;
-        // Beach distance sorting removed until column is added
-        default:
-          query = query.order('created_at', { ascending: false });
+    if (params.costa) {
+      query = query.eq('costa', params.costa);
+    }
+
+    if (params.minPrice) {
+      query = query.gte('price', parseInt(params.minPrice));
+    }
+
+    if (params.maxPrice) {
+      query = query.lte('price', parseInt(params.maxPrice));
+    }
+
+    if (params.beds) {
+      query = query.eq('beds', parseInt(params.beds));
+    }
+
+    if (params.type) {
+      query = query.eq('type', params.type);
+    }
+
+    // Add location search if provided
+    if (params.q?.trim()) {
+      const searchTerm = params.q.trim().toLowerCase();
+      query = query.or(`province.ilike.%${searchTerm}%,costa.ilike.%${searchTerm}%,town.ilike.%${searchTerm}%`);
+    }
+
+    const { data, error } = await query;
+
+    if (error) throw error;
+
+    // Get unique provinces and costas for filters
+    const { data: provinces } = await supabase
+      .from('properties')
+      .select('province')
+      .not('province', 'is', null)
+      .limit(1000);
+
+    const { data: costas } = await supabase
+      .from('properties')
+      .select('costa')
+      .not('costa', 'is', null)
+      .limit(1000);
+
+    const uniqueProvinces = [...new Set(provinces?.map(p => p.province))];
+    const uniqueCostas = [...new Set(costas?.map(c => c.costa))];
+
+    return {
+      propertiesData: data || [],
+      totalProperties: data?.length || 0,
+      error: null,
+      locations: {
+        provinces: uniqueProvinces || [],
+        costas: uniqueCostas || []
       }
-    } else {
-      // Default sorting: newest first
-      query = query.order('created_at', { ascending: false });
-    }
-
-    // Apply search filter if search query exists
-    if (searchParams.q) {
-      const searchQuery = searchParams.q;
-      console.log('\n=== Search Query ===');
-      console.log('Original search query:', searchQuery);
-      
-      // Function to find closest property type match
-      const findPropertyTypeMatch = (input: string): string | null => {
-        const normalizedInput = input.toLowerCase().trim();
-        
-        // First try Dutch translation
-        const translatedType = DUTCH_TRANSLATIONS[normalizedInput];
-        if (translatedType) return translatedType;
-
-        // Then try exact match (case-insensitive)
-        const exactMatch = PROPERTY_TYPES.find(
-          type => type.toLowerCase() === normalizedInput
-        );
-        if (exactMatch) return exactMatch;
-
-        // Then try matching with spaces removed
-        const noSpaceInput = normalizedInput.replace(/\s+/g, '');
-        // Check Dutch translations without spaces
-        const translatedNoSpace = Object.entries(DUTCH_TRANSLATIONS).find(
-          ([dutch]) => dutch.replace(/\s+/g, '') === noSpaceInput
-        );
-        if (translatedNoSpace) return translatedNoSpace[1];
-        
-        // Try English without spaces
-        const noSpaceMatch = PROPERTY_TYPES.find(
-          type => type.toLowerCase().replace(/\s+/g, '') === noSpaceInput
-        );
-        if (noSpaceMatch) return noSpaceMatch;
-
-        // Try prefix match in both languages
-        for (const [dutch, english] of Object.entries(DUTCH_TRANSLATIONS)) {
-          if (dutch.startsWith(normalizedInput)) return english;
-        }
-        
-        const prefixMatches = PROPERTY_TYPES.filter(type => {
-          const words = type.toLowerCase().split(' ');
-          return words[0] === normalizedInput;
-        });
-        if (prefixMatches.length === 1) return prefixMatches[0];
-
-        return null;
-      };
-
-      // Try to find a property type match
-      const propertyTypeMatch = findPropertyTypeMatch(searchQuery);
-      console.log('Property type match:', propertyTypeMatch);
-      
-      if (propertyTypeMatch) {
-        // If it matches a property type, search by that type
-        console.log('Searching by type:', propertyTypeMatch);
-        query = query.eq('type', propertyTypeMatch);
-      } else {
-        // Otherwise search in location fields (case-insensitive)
-        const searchTerm = searchQuery.toLowerCase();
-        console.log('Searching by location:', searchTerm);
-        query = query
-          .or('town.ilike.%' + searchTerm + '%')
-          .or('province.ilike.%' + searchTerm + '%')
-          .or('costa.ilike.%' + searchTerm + '%');
+    };
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+    return {
+      propertiesData: [],
+      totalProperties: 0,
+      error: error instanceof Error ? error : new Error('Unknown error'),
+      locations: {
+        provinces: [],
+        costas: []
       }
-      
-      // Log the final query config
-      console.log('Final query config:', {
-        searchTerm: searchQuery,
-        propertyTypeMatch,
-        filter: propertyTypeMatch ? `type = ${propertyTypeMatch}` : `town/province/costa ilike %${searchQuery.toLowerCase()}%`
-      });
-    }
+    };
+  }
+}
 
-    // Log the full query for debugging
-    console.log('Query:', query.toString());
+export default async function PropertiesPage({ searchParams }: { searchParams: SearchParams }) {
+  try {
+    // Get properties with filters and pagination
+    const { propertiesData, totalProperties, error, locations } = await getProperties(searchParams);
+    
+    if (error) throw error;
 
-    const { data: propertiesData, error } = await query
-      .range(start, end)
-      .order('id', { ascending: true });
+    // No need to process property data anymore since we're using BasicProperty
+    const properties = propertiesData;
 
-    console.log('Query result:', { propertiesData, error });
-    if (error) {
-      console.error('Database error:', error);
-    } else {
-      console.log('Number of properties found:', propertiesData?.length || 0);
-      if (propertiesData && propertiesData.length > 0) {
-        console.log('First property:', {
-          town: propertiesData[0].town,
-          province: propertiesData[0].province,
-          costa: propertiesData[0].costa,
-          type: propertiesData[0].type
-        });
-      }
-    }
-
-    if (error) {
-      console.error('Error fetching properties:', error);
-      return (
-        <main className="container mx-auto px-4 py-8 pt-20">
-          <h1 className="text-3xl font-bold mb-8">Woningen</h1>
-          <div className="text-center py-12">
-            <p className="text-xl text-red-600">
-              Er is een fout opgetreden bij het laden van de woningen.
-            </p>
-          </div>
-        </main>
-      );
-    }
-
-    if (!propertiesData || propertiesData.length === 0) {
-      return (
-        <main className="container mx-auto px-4 py-8 pt-20">
-          <h1 className="text-3xl font-bold mb-8">Woningen</h1>
-          <div className="text-center py-12">
-            <p className="text-lg text-[#2F2F2F]">
-              Geen woningen gevonden
-            </p>
-          </div>
-        </main>
-      );
-    }
-
-    type PropertyTitle = { language: string; title: string };
-    type PropertyDescription = { language: string; description: string };
-    type PropertyFeature = { feature: string };
-    type PropertyImage = { url: string };
-
-    const properties = propertiesData.map(p => ({
-      ...p,
-      titles: p.property_titles?.reduce((acc: Record<string, string>, t: PropertyTitle) => 
-        ({ ...acc, [t.language]: t.title }), {}),
-      descriptions: p.property_descriptions?.reduce((acc: Record<string, string>, d: PropertyDescription) => 
-        ({ ...acc, [d.language]: d.description }), {}),
-      features: p.property_features?.map((f: PropertyFeature) => f.feature) || [],
-      images: p.property_images?.map((i: PropertyImage) => ({ id: i.url, url: i.url })) || []
-    }));
-
-    const totalPages = Math.ceil((totalCount || 0) / ITEMS_PER_PAGE);
-    const showingStart = start + 1;
-    const showingEnd = Math.min(end + 1, totalCount || 0);
+    const currentPage = parseInt(searchParams.page || '1');
+    const totalPages = Math.ceil((totalProperties || 0) / ITEMS_PER_PAGE);
+    const start = (currentPage - 1) * ITEMS_PER_PAGE + 1;
+    const end = Math.min(start + ITEMS_PER_PAGE - 1, totalProperties || 0);
 
     return (
       <main className="min-h-screen bg-[#FFFDF6] pt-28">
@@ -289,19 +249,61 @@ export default async function PropertiesPage({
           <div className="mb-8">
             <Filters
               propertyTypes={Array.from(PROPERTY_TYPES)}
-              locations={uniqueLocations || []}
+              locations={locations}
             />
           </div>
 
           <div className="flex justify-end mb-6">
             <p className="summer-tag bg-[#E6D4A8] text-[#5B3924]">
-              {showingStart}-{showingEnd} van {totalCount} woningen
+              {start}-{end} van {totalProperties} woningen
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {properties.map((property) => (
-              <PropertyCard key={property.id} property={property as Property} />
+              <Link 
+                href={`/properties/${property.id}`} 
+                key={property.id} 
+                className="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 hover:border-[#F5E6CC] border-2 border-transparent cursor-pointer"
+              >
+                <div className="relative h-48">
+                  <img
+                    src={property.property_images?.[0]?.url || '/images/placeholder.jpg'}
+                    alt={property.property_titles?.find(t => t.language === 'nl')?.title || 
+                         property.property_titles?.find(t => t.language === 'en')?.title || ''}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-0 right-0 bg-[#E9B649] text-white px-3 py-1 m-2 rounded">
+                    {property.price_freq === 'sale' ? 'Te Koop' :
+                     property.price_freq === 'month' ? 'Per Maand' : 'Per Week'}
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-2">
+                    {property.property_titles?.find(t => t.language === 'nl')?.title || 
+                     property.property_titles?.find(t => t.language === 'en')?.title || 'Geen titel'}
+                  </h3>
+                  <p className="text-[#E9B649] text-xl font-bold mb-2 flex items-center gap-2">
+                    <FaEuroSign className="h-5 w-5" />
+                    €{property.price.toLocaleString()}
+                  </p>
+                  <p className="text-gray-600 mb-2">{property.province}, {property.costa}</p>
+                  <div className="grid grid-cols-3 gap-2 text-gray-600 text-sm mt-4 border-t pt-4">
+                    <div className="flex items-center gap-2">
+                      <FaBed className="h-5 w-5 text-[#E9B649]" />
+                      <span>{property.beds} kamers</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <FaBath className="h-5 w-5 text-[#E9B649]" />
+                      <span>{property.baths} baden</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <FaRulerCombined className="h-5 w-5 text-[#E9B649]" />
+                      <span>{property.built_area}m²</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
 
@@ -335,11 +337,7 @@ export default async function PropertiesPage({
     );
   } catch (error) {
     console.error('Error in PropertiesPage:', error);
-    // Get unique locations for filters
-    const { data: locations } = await supabase
-      .from('properties')
-      .select('province, costa')
-      .limit(1000);
+    console.error('Error details:', JSON.stringify(error, null, 2));
 
     return (
       <div className="container mx-auto px-4 py-8">
@@ -348,7 +346,10 @@ export default async function PropertiesPage({
         {/* Filters */}
         <Filters
           propertyTypes={Array.from(PROPERTY_TYPES)}
-          locations={locations || []}
+          locations={{
+            provinces: [],
+            costas: []
+          }}
         />
         <div className="text-center py-12">
           <p className="text-xl text-red-600">
