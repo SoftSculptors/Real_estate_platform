@@ -2,14 +2,15 @@ import Link from 'next/link';
 import { FaMapMarkerAlt, FaBed, FaBath, FaRuler } from 'react-icons/fa';
 import { supabase } from '@/lib/supabase';
 import SearchBar from '@/components/home/SearchBar';
+import WhyOleWonen from '@/components/home/WhyOleWonen';
 import { Property } from '@/types/property';
 
 async function getFeaturedProperties(): Promise<Property[]> {
   try {
     const { data, error } = await supabase
-      .from('properties')
+      .from('property_search_view')
       .select('*')
-      .eq('featured', true)
+      .order('created_at', { ascending: false })
       .limit(6);
 
     if (error) {
@@ -149,6 +150,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Why Ole Wonen Section */}
+      <WhyOleWonen />
 
       {/* CTA Section */}
       <section className="py-16 bg-[#F5C242] text-[#5B3924]">

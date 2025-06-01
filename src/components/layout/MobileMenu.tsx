@@ -23,12 +23,12 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-[#5B3924]/20 backdrop-blur-sm z-40"></div>
+          <div className="fixed inset-0 bg-[#5B3924]/20 backdrop-blur-sm"></div>
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+            <div className="fixed inset-y-0 right-0 flex max-w-full pl-10">
               <Transition.Child
                 as={Fragment}
                 enter="transform transition ease-in-out duration-300"
@@ -39,7 +39,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto relative w-screen max-w-md">
-                  <div className="fixed right-0 top-0 bottom-0 w-full max-w-xs bg-[#FFFDF6] shadow-lg z-50 overflow-y-auto border-l border-[#E6D4A8] py-6">
+                  <div className="fixed right-0 top-0 bottom-0 w-full max-w-xs bg-[#FFFDF6] shadow-lg overflow-y-auto border-l border-[#E6D4A8] py-6">
                     <div className="px-4 sm:px-6">
                       <div className="flex items-start justify-between">
                         <Dialog.Title className="text-2xl font-bold text-[#5B3924]">

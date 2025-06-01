@@ -7,9 +7,9 @@ import { ChevronDownIcon, ChevronUpIcon, AdjustmentsHorizontalIcon, ArrowsUpDown
 interface FiltersProps {
   propertyTypes: string[];
   locations: {
-    province: string;
-    costa: string;
-  }[];
+    provinces: string[];
+    costas: string[];
+  };
 }
 
 export default function Filters({ propertyTypes, locations }: FiltersProps) {
@@ -29,9 +29,9 @@ export default function Filters({ propertyTypes, locations }: FiltersProps) {
     sortBy: searchParams.get('sortBy') || 'newest'
   });
 
-  // Get unique provinces and costas
-  const provinces = [...new Set(locations.map(l => l.province))].sort();
-  const costas = [...new Set(locations.map(l => l.costa))].sort();
+  // Get provinces and costas
+  const provinces = locations.provinces.sort();
+  const costas = locations.costas.sort();
 
   // Handle filter changes
   const handleFilterChange = (name: string, value: string) => {
