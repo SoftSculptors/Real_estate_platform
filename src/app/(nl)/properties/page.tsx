@@ -121,6 +121,20 @@ function getPropertyTypeMatches(searchTerms: string[]): string[] {
 // Helper function to get properties with filters
 async function getProperties(params: SearchParams): Promise<QueryResult> {
   try {
+    // First get unique locations
+    const { data: provinces } = await supabase
+      .from('properties')
+      .select('province')
+      .not('province', 'is', null)
+      .limit(100);
+
+    const { data: costas } = await supabase
+      .from('properties')
+      .select('costa')
+      .not('costa', 'is', null)
+      .limit(100);
+
+    // Then get properties with filters
     let query = supabase
       .from('properties')
       .select(`
@@ -136,7 +150,8 @@ async function getProperties(params: SearchParams): Promise<QueryResult> {
         built_area,
         property_titles (language, title),
         property_images (url)
-      `);
+      `)
+      .limit(100);
 
     // Add filters based on search params
     if (params.province) {
@@ -170,21 +185,7 @@ async function getProperties(params: SearchParams): Promise<QueryResult> {
     }
 
     const { data, error } = await query;
-
     if (error) throw error;
-
-    // Get unique provinces and costas for filters
-    const { data: provinces } = await supabase
-      .from('properties')
-      .select('province')
-      .not('province', 'is', null)
-      .limit(1000);
-
-    const { data: costas } = await supabase
-      .from('properties')
-      .select('costa')
-      .not('costa', 'is', null)
-      .limit(1000);
 
     const uniqueProvinces = [...new Set(provinces?.map(p => p.province))];
     const uniqueCostas = [...new Set(costas?.map(c => c.costa))];

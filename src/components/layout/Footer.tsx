@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">Real Estate NL</h3>
+            <h3 className="text-xl font-bold mb-4">Olé Wonen</h3>
             <p className="text-[#E6D4A8]">
               Uw betrouwbare partner in vastgoed. Wij helpen u bij het vinden van uw droomhuis.
             </p>
@@ -17,9 +17,9 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/properties" className="text-[#E6D4A8] hover:text-[#FFFDF6] transition-colors">
-                  Woningen
-                </Link>
+                <a href="mailto:info@olewonen.nl" className="text-[#E6D4A8] hover:text-white transition-colors">
+                  info@olewonen.nl
+                </a>
               </li>
               <li>
                 <Link href="/about" className="text-[#E6D4A8] hover:text-[#FFFDF6] transition-colors">
@@ -40,7 +40,7 @@ export default function Footer() {
               <li>Hoofdstraat 123</li>
               <li>1234 AB Amsterdam</li>
               <li>Tel: +31 6 1234 5678</li>
-              <li>Email: info@realestate.nl</li>
+              <li>Email: info@olewonen.nl</li>
             </ul>
           </div>
 
@@ -61,7 +61,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Real Estate NL. Alle rechten voorbehouden.</p>
+          <p>&copy; {new Date().getFullYear()} Olé Wonen. Alle rechten voorbehouden.</p>
         </div>
       </div>
     </footer>
