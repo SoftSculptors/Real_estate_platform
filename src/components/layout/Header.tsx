@@ -12,8 +12,8 @@ export default function Header() {
   return (
     <header className="fixed w-full bg-[#FFFDF6]/90 backdrop-blur-sm shadow-sm z-50 border-b border-[#E6D4A8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-24">
-          <Link href="/" className="flex items-center space-x-2">
+        <div className="flex flex-col sm:flex-row justify-between items-center h-24">
+          <Link href="/" className="flex items-center justify-center w-full sm:w-auto sm:justify-start">
             <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
