@@ -17,8 +17,8 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a href="mailto:info@olewonen.nl" className="text-[#E6D4A8] hover:text-white transition-colors">
-                  info@olewonen.nl
+                <a href="mailto:info@annemansautomotive.com" className="text-[#E6D4A8] hover:text-white transition-colors">
+                  info@annemansautomotive.com
                 </a>
               </li>
               <li>
@@ -37,17 +37,17 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>Hoofdstraat 123</li>
-              <li>1234 AB Amsterdam</li>
-              <li>Tel: +31 6 1234 5678</li>
-              <li>Email: info@olewonen.nl</li>
+              <li>Bokspane 23, Berendrecht, 2040</li>
+              <li>Tel: +32 484 37 81 65</li>
+              <li>Email: info@annemansautomotive.com</li>
+              <li>BTW: BE0767 391 051</li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-lg font-semibold mb-4">Volg Ons</h4>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://www.facebook.com/share/1aaXqSeHe4/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <FaFacebook className="h-6 w-6" />
               </a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
