@@ -73,14 +73,6 @@ export default function ContactPage() {
                 <FaEnvelope className="w-5 h-5 mr-3 text-orange-400 group-hover:text-cyan-600 transition-colors" />
                 info@annemansautomotive.com
               </p>
-              <p className="flex items-center">
-                <FaClock className="w-5 h-5 mr-3 text-orange-400" />
-                <span>
-                  <span className="block font-medium text-slate-700">Openingstijden</span>
-                  <span className="block text-sm">Maandag t/m Vrijdag: 9:00 - 17:00</span>
-                  <span className="block text-sm text-orange-500">(Belgische tijd)</span>
-                </span>
-              </p>
             </div>
           </div>
         </div>
