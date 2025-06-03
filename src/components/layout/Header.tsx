@@ -43,13 +43,13 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
-            <a href="tel:+31612345678" className="flex items-center space-x-2 text-[#2F2F2F] hover:text-[#F5C242]">
+            <a href="tel:+32484378165" className="flex items-center space-x-2 text-[#2F2F2F] hover:text-[#F5C242]">
               <FaPhone className="h-4 w-4" />
-              <span>+31 6 1234 5678</span>
+              <span>+32 484 37 81 65</span>
             </a>
-            <a href="mailto:info@olewonen.nl" className="flex items-center space-x-2 text-[#2F2F2F] hover:text-[#F5C242]">
+            <a href="mailto:info@annemansautomotive.com" className="flex items-center space-x-2 text-[#2F2F2F] hover:text-[#F5C242]">
               <FaEnvelope className="h-4 w-4" />
-              <span>info@olewonen.nl</span>
+              <span>info@annemansautomotive.com</span>
             </a>
           </div>
 

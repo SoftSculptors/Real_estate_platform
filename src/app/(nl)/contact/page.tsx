@@ -63,22 +63,22 @@ export default function ContactPage() {
             <div className="space-y-4 text-slate-600">
               <p className="flex items-center group hover:text-cyan-600 transition-colors cursor-pointer">
                 <FaMapMarkerAlt className="w-5 h-5 mr-3 text-orange-400 group-hover:text-cyan-600 transition-colors" />
-                Zonnestraat 123, 1234 AB Amsterdam
+                Bokspane 23, Berendrecht, 2040
               </p>
               <p className="flex items-center group hover:text-cyan-600 transition-colors cursor-pointer">
                 <FaPhone className="w-5 h-5 mr-3 text-orange-400 group-hover:text-cyan-600 transition-colors" />
-                +31 (0)20 123 4567
+                +32 484 37 81 65
               </p>
               <p className="flex items-center group hover:text-cyan-600 transition-colors cursor-pointer">
                 <FaEnvelope className="w-5 h-5 mr-3 text-orange-400 group-hover:text-cyan-600 transition-colors" />
-                info@spaanse-droomhuizen.nl
+                info@annemansautomotive.com
               </p>
               <p className="flex items-center">
                 <FaClock className="w-5 h-5 mr-3 text-orange-400" />
                 <span>
                   <span className="block font-medium text-slate-700">Openingstijden</span>
                   <span className="block text-sm">Maandag t/m Vrijdag: 9:00 - 17:00</span>
-                  <span className="block text-sm text-orange-500">(Spaanse tijd)</span>
+                  <span className="block text-sm text-orange-500">(Belgische tijd)</span>
                 </span>
               </p>
             </div>
