@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import "./globals.css";
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
@@ -16,6 +18,9 @@ export const metadata: Metadata = {
     icon: '/favicon.ico'
   }
 };
+
+// Initialize EmailJS with your public key
+emailjs.init('YOUR_PUBLIC_KEY'); // Vervang dit met je eigen public key
 
 export default function RootLayout({
   children,
