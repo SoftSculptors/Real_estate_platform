@@ -4,6 +4,7 @@ import { Property, CurrencyType } from '@/types/property';
 import { FaBed, FaBath, FaRuler, FaCheck } from 'react-icons/fa';
 import ImageGallery from '@/components/properties/ImageGallery';
 import { Metadata, ResolvingMetadata } from 'next';
+import MetadataDebug from '@/components/debug/MetadataDebug';
 
 type Props = {
   params: { id: string }
@@ -51,10 +52,15 @@ export async function generateMetadata(
   const absoluteImageUrl = firstImage
     ? firstImage.startsWith('http')
       ? firstImage
-      : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${firstImage}`
+      : `${process.env.NEXT_PUBLIC_SUPABASE_URL}${firstImage}`
     : undefined;
 
-  console.log('Generated image URL:', absoluteImageUrl); // Debug logging
+  console.log('Property data:', {
+    titles: propertyData.property_titles,
+    descriptions: propertyData.property_descriptions,
+    firstImage,
+    absoluteImageUrl
+  });
 
   // Create location string
   const location = [propertyData.town, propertyData.province, propertyData.costa].filter(Boolean).join(', ');
@@ -143,7 +149,9 @@ export default async function PropertyDetailPage({ params }: Props) {
   const priceLabel = property.price_freq === 'sale' ? 'Te Koop' : 'Te Huur';
 
   return (
-    <main className="min-h-screen bg-[#FFFDF6] py-8 pt-28">
+    <>
+      <MetadataDebug />
+      <main className="min-h-screen bg-[#FFFDF6] py-8 pt-28">
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -256,5 +264,6 @@ export default async function PropertyDetailPage({ params }: Props) {
         </div>
       </div>
     </main>
+    </>
   );
 }
