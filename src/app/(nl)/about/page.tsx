@@ -16,10 +16,6 @@ export default function AboutPage() {
                 We begrijpen dat het kopen van een woning in het buitenland een grote stap is, en daarom staan we klaar om u te begeleiden 
                 bij elke stap van het proces.
               </p>
-              <p>
-                Met onze jarenlange ervaring en grondige kennis van de Spaanse vastgoedmarkt, kunnen we u het beste advies geven en 
-                zorgen dat u gekoppeld wordt aan de juiste makelaar die past bij uw wensen en budget.
-              </p>
             </div>
           </div>
           
@@ -31,7 +27,7 @@ export default function AboutPage() {
                 We focussen ons op Costa Blanca Zuid, Costa Blanca Noord en Costa Cálida, waar we een uitgebreid netwerk van betrouwbare partners hebben opgebouwd.
               </p>
               <p>
-                Door onze jarenlange ervaring weten we precies welke makelaar het beste bij uw wensen en situatie past. We zorgen ervoor dat u gekoppeld wordt
+                Door ons sterke netwerk weten we precies welke makelaar het beste bij uw wensen en situatie past. We zorgen ervoor dat u gekoppeld wordt
                 aan een professional die niet alleen de juiste expertise heeft, maar ook dezelfde taal spreekt en begrijpt wat u zoekt.
               </p>
             </div>
