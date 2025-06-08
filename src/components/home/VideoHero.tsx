@@ -14,7 +14,7 @@ export default function VideoHero() {
         className="absolute w-full h-full object-cover"
         style={{ filter: 'brightness(0.7)' }}
       >
-        <source src="/videos/hero-background.mp4" type="video/mp4" />
+        <source src="/videos/2764953-hd_1920_1080_24fps.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
