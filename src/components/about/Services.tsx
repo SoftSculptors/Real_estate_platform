@@ -126,7 +126,7 @@ export default function Services() {
         <div className="mt-12 text-center max-w-3xl mx-auto">
           <p className="text-lg text-[#2F2F2F] italic">
             Olé Wonen levert deze diensten niet zelf, maar zorgt ervoor dat je in contact komt met betrouwbare en professionele partijen 
-            in Costa Blanca Zuid, Costa Blanca Noord en Costa Cálida die hun werk goed doen – en die wij al jaren kennen.
+            in Costa Blanca Zuid, Costa Blanca Noord en Costa Cálida die hun werk goed doen.
           </p>
         </div>
       </div>
