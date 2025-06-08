@@ -3,8 +3,10 @@ import { supabase } from '@/lib/supabase';
 import { Property, CurrencyType } from '@/types/property';
 import { FaBed, FaBath, FaRuler, FaCheck } from 'react-icons/fa';
 import ImageGallery from '@/components/properties/ImageGallery';
+import ShareProperty from '@/components/properties/ShareProperty';
 import { Metadata, ResolvingMetadata } from 'next';
 import MetadataDebug from '@/components/debug/MetadataDebug';
+import { headers } from 'next/headers';
 
 type Props = {
   params: { id: string }
@@ -47,6 +49,11 @@ export async function generateMetadata(
     maximumFractionDigits: 0,
   }).format(propertyData.price);
 
+  // Get the host from headers
+  const headersList = headers();
+  const host = headersList.get('host') || process.env.NEXT_PUBLIC_BASE_URL?.replace(/^https?:\/\//, '');
+  const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+
   // Get first image and ensure it's an absolute URL
   const firstImage = propertyData.property_images?.[0]?.url;
   const absoluteImageUrl = firstImage
@@ -54,6 +61,9 @@ export async function generateMetadata(
       ? firstImage
       : `${process.env.NEXT_PUBLIC_SUPABASE_URL}${firstImage}`
     : undefined;
+
+  // Create absolute URL for the current page
+  const pageUrl = `${protocol}://${host}/properties/${params.id}`;
 
   console.log('Property data:', {
     titles: propertyData.property_titles,
@@ -156,8 +166,14 @@ export default async function PropertyDetailPage({ params }: Props) {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Image section */}
-            <div className="lg:sticky lg:top-8 h-fit">
+            <div className="lg:sticky lg:top-8 h-fit space-y-4">
               <ImageGallery images={property.images} title={title} />
+              <ShareProperty
+                title={title}
+                description={description}
+                imageUrl={property.images[0]?.url || ''}
+                url={`${process.env.NEXT_PUBLIC_BASE_URL}/properties/${params.id}`}
+              />
             </div>
 
             {/* Property Details */}
@@ -259,6 +275,8 @@ export default async function PropertyDetailPage({ params }: Props) {
                   </div>
                 </div>
               )}
+
+
             </div>
           </div>
         </div>
