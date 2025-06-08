@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { FaMapMarkerAlt, FaBed, FaBath, FaRuler } from 'react-icons/fa';
 import { supabase } from '@/lib/supabase';
-import SearchBar from '@/components/home/SearchBar';
 import WhyOleWonen from '@/components/home/WhyOleWonen';
 import { Property } from '@/types/property';
+import VideoHero from '@/components/home/VideoHero';
 
 async function getFeaturedProperties(): Promise<Property[]> {
   try {
@@ -32,27 +32,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen flex-grow pt-28 bg-[#FFFDF6]">
-      {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center" style={{
-        backgroundImage: "url('/images/7a1ab23b-9d83-43ee-8737-45cf5649cc08.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
-      }}>
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Ontdek Uw Droomhuis in Spanje
-          </h1>
-          <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
-            Van moderne appartementen aan de kust tot luxe villa's met zeezicht
-          </p>
-          
-          {/* Search Bar */}
-          <div className="max-w-4xl mx-auto">
-            <SearchBar />
-          </div>
-        </div>
-      </section>
+      <VideoHero />
 
       {/* Featured Properties */}
       <section className="py-16 bg-[#FFFDF6]">
