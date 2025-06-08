@@ -98,11 +98,11 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
                           <span>+31 6 1234 5678</span>
                         </a>
                         <a
-                          href="mailto:info@realestate.nl"
+                          href="mailto:info@annemansautomotive.com"
                           className="flex items-center space-x-2 text-[#5B3924] hover:text-[#F5C242]"
                         >
                           <FaEnvelope className="h-5 w-5" />
-                          <span>info@realestate.nl</span>
+                          <span>info@annemansautomotive.com</span>
                         </a>
                       </div>
                     </div>
