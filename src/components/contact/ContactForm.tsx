@@ -18,19 +18,31 @@ export default function ContactForm() {
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      from_phone: formData.phone,
+      message: formData.message,
+      to_name: 'Olé Wonen',
+      to_email: 'info@annemansautomotive.com',
+      logo_url: 'https://olewonen.be/images/logo.png' // Update met de juiste logo URL
+    };
+
     try {
+      // Verstuur interne notificatie
       await emailjs.send(
-        'YOUR_SERVICE_ID', // Je moet dit vervangen met je emailjs service ID
-        'YOUR_TEMPLATE_ID', // Je moet dit vervangen met je template ID
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          from_phone: formData.phone,
-          message: formData.message,
-          to_name: 'Olé Wonen',
-          to_email: 'info@annemansautomotive.com'
-        },
-        'YOUR_PUBLIC_KEY' // Je moet dit vervangen met je emailjs public key
+        'service_otvt80d',
+        'template_gckdxtr',
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
+      );
+
+      // Verstuur auto-reply naar klant
+      await emailjs.send(
+        'service_otvt80d',
+        'template_autoreply', // Update met je auto-reply template ID
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
       );
 
       setSubmitStatus('success');
