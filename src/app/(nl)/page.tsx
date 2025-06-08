@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { FaMapMarkerAlt, FaBed, FaBath, FaRuler } from 'react-icons/fa';
 import { supabase } from '@/lib/supabase';
+import SearchBar from '@/components/home/SearchBar';
 import WhyOleWonen from '@/components/home/WhyOleWonen';
 import { Property } from '@/types/property';
 import VideoHero from '@/components/home/VideoHero';
+import { ScaleIcon } from '@heroicons/react/24/outline';
 
 async function getFeaturedProperties(): Promise<Property[]> {
   try {
@@ -100,12 +102,10 @@ export default async function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center group">
               <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-orange-100 flex items-center justify-center group-hover:bg-summer-100 transition-colors">
-                <svg className="w-8 h-8 text-orange-500 group-hover:text-summer-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
+                <ScaleIcon className="w-8 h-8 text-orange-500 group-hover:text-summer-600 transition-colors" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-800 mb-2">Uitgebreid Aanbod</h3>
-              <p className="text-slate-600">Ruime selectie van woningen in de meest gewilde regio's van Spanje</p>
+              <h3 className="text-xl font-semibold text-slate-800 mb-2">Juridisch Advies</h3>
+              <p className="text-slate-600">Toegang tot ervaren, onafhankelijke advocaten gekend door de makelaar.</p>
             </div>
 
             <div className="text-center group">
