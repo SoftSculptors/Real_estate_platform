@@ -29,18 +29,9 @@ export default function ContactForm() {
     };
 
     try {
-      // Verstuur interne notificatie
       await emailjs.send(
         'service_otvt80d',
         'template_gckdxtr',
-        templateParams,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
-      );
-
-      // Verstuur auto-reply naar klant
-      await emailjs.send(
-        'service_otvt80d',
-        'template_autoreply', // Update met je auto-reply template ID
         templateParams,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
       );
