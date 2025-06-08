@@ -32,9 +32,13 @@ export async function generateMetadata(
     };
   }
 
-  const title = propertyData.property_titles?.[0]?.title || 'Woning';
-  const description = propertyData.property_descriptions?.[0]?.description || '';
-  const firstImage = propertyData.property_images?.[0]?.url;
+  // Get Dutch title and description
+  const dutchTitle = propertyData.property_titles?.find((t: { language: string; title: string }) => t.language === 'nl')?.title || propertyData.property_titles?.[0]?.title || 'Woning';
+  const dutchDescription = propertyData.property_descriptions?.find((d: { language: string; description: string }) => d.language === 'nl')?.description || 
+                          propertyData.property_descriptions?.[0]?.description || 
+                          'Bekijk deze prachtige woning in Spanje';
+
+  // Format price in Dutch style
   const price = new Intl.NumberFormat('nl-NL', {
     style: 'currency',
     currency: propertyData.currency || 'EUR',
@@ -42,8 +46,16 @@ export async function generateMetadata(
     maximumFractionDigits: 0,
   }).format(propertyData.price);
 
-  const metaTitle = `${title} - ${price} | Olé Wonen`;
-  const metaDescription = description.length > 160 ? `${description.substring(0, 157)}...` : description;
+  // Get first image and ensure it's an absolute URL
+  const firstImage = propertyData.property_images?.[0]?.url;
+  const absoluteImageUrl = firstImage ? new URL(firstImage, process.env.NEXT_PUBLIC_BASE_URL).toString() : undefined;
+
+  // Create location string
+  const location = [propertyData.town, propertyData.province, propertyData.costa].filter(Boolean).join(', ');
+
+  // Create metadata title and description
+  const metaTitle = `${dutchTitle} - ${price} | ${location} | Olé Wonen`;
+  const metaDescription = `${dutchDescription}\nLocatie: ${location}\nPrijs: ${price}\nSlaapkamers: ${propertyData.beds} | Badkamers: ${propertyData.baths} | Oppervlakte: ${propertyData.built_area}m²`;
 
   return {
     title: metaTitle,
@@ -51,20 +63,23 @@ export async function generateMetadata(
     openGraph: {
       title: metaTitle,
       description: metaDescription,
-      images: firstImage ? [
+      images: absoluteImageUrl ? [
         {
-          url: firstImage,
+          url: absoluteImageUrl,
           width: 1200,
           height: 630,
-          alt: title
+          alt: dutchTitle
         }
-      ] : undefined
+      ] : undefined,
+      locale: 'nl_NL',
+      type: 'website',
+      siteName: 'Olé Wonen'
     },
     twitter: {
       card: 'summary_large_image',
       title: metaTitle,
       description: metaDescription,
-      images: firstImage ? [firstImage] : undefined
+      images: absoluteImageUrl ? [absoluteImageUrl] : undefined
     }
   };
 }
