@@ -5,7 +5,7 @@ import emailjs from '@emailjs/browser';
 
 export default function EmailProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    emailjs.init('YOUR_PUBLIC_KEY'); // Vervang dit met je eigen public key
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
   }, []);
 
   return <>{children}</>;

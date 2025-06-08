@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bedankt voor uw bericht - Olé Wonen</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #FFFDF6;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #5B3924;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .logo {
+      max-width: 200px;
+      height: auto;
+    }
+    .content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin: 20px 0;
+    }
+    .greeting {
+      font-size: 1.2em;
+      color: #5B3924;
+      margin-bottom: 20px;
+    }
+    .message {
+      color: #2F2F2F;
+      margin-bottom: 20px;
+    }
+    .contact-info {
+      background-color: #F9F5E9;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .contact-info h3 {
+      color: #5B3924;
+      margin-top: 0;
+    }
+    .footer {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #F5C242;
+      border-radius: 8px;
+    }
+    .social-links {
+      margin: 20px 0;
+    }
+    .social-links a {
+      color: #5B3924;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .accent {
+      color: #F5C242;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="{{logo_url}}" alt="Olé Wonen" class="logo">
+      <h1>Bedankt voor uw bericht</h1>
+    </div>
+    
+    <div class="content">
+      <div class="greeting">
+        Beste {{from_name}},
+      </div>
+      
+      <div class="message">
+        <p>Hartelijk dank voor uw interesse in Olé Wonen. We hebben uw bericht in goede orde ontvangen en zullen zo spoedig mogelijk contact met u opnemen.</p>
+        
+        <p>Voor uw referentie, hier is een kopie van uw bericht:</p>
+      </div>
+
+      <div class="contact-info">
+        <h3>Uw gegevens</h3>
+        <p><strong>Naam:</strong> {{from_name}}</p>
+        <p><strong>E-mail:</strong> {{from_email}}</p>
+        <p><strong>Telefoon:</strong> {{from_phone}}</p>
+        <p><strong>Uw bericht:</strong><br>{{message}}</p>
+      </div>
+
+      <div class="message">
+        <p>Heeft u dringende vragen? U kunt ons altijd bereiken via:</p>
+        <ul>
+          <li>Telefoon: +32 484 37 81 65</li>
+          <li>WhatsApp: +32 484 37 81 65</li>
+          <li>E-mail: info@annemansautomotive.com</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>Volg ons op sociale media voor het laatste nieuws over Spaans vastgoed</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/share/1aaXqSeHe4/">Facebook</a>        
+      </div>
+      <p>© 2025 Olé Wonen. Alle rechten voorbehouden.</p>
+    </div>
+  </div>
+</body>
+</html>
