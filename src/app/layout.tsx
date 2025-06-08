@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { useEffect } from 'react';
-import emailjs from '@emailjs/browser';
 import "./globals.css";
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import EmailProvider from '@/components/providers/EmailProvider'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,8 +11,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Olé Wonen | Uw Betrouwbare Partner in Vastgoed",
-  description: "Ontdek ons uitgebreide aanbod van luxe woningen en exclusief vastgoed in Nederland. Professionele begeleiding bij elke stap van uw zoektocht naar uw droomhuis.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://ole-wonen.nl'),
+  title: "Olé Wonen | Uw droomhuis in Spanje",
+  description: "Ontdek uw droomhuis in Spanje met Olé Wonen. Wij helpen u bij het vinden en kopen van de perfecte woning in Spanje.",
   icons: {
     icon: '/favicon.ico'
   },
@@ -41,9 +41,6 @@ export const metadata: Metadata = {
   }
 };
 
-// Initialize EmailJS with your public key
-emailjs.init('YOUR_PUBLIC_KEY'); // Vervang dit met je eigen public key
-
 export default function RootLayout({
   children,
 }: {
@@ -58,9 +55,11 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png" />
       </head>
       <body className="antialiased min-h-screen flex flex-col">
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <EmailProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </EmailProvider>
       </body>
     </html>
   );
