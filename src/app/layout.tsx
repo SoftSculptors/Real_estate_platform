@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import "./globals.css";
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
@@ -14,8 +16,33 @@ export const metadata: Metadata = {
   description: "Ontdek ons uitgebreide aanbod van luxe woningen en exclusief vastgoed in Nederland. Professionele begeleiding bij elke stap van uw zoektocht naar uw droomhuis.",
   icons: {
     icon: '/favicon.ico'
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'nl_NL',
+    url: 'https://www.olewonen.nl',
+    siteName: 'Olé Wonen',
+    title: 'Olé Wonen | Uw Betrouwbare Partner in Vastgoed',
+    description: 'Ontdek ons uitgebreide aanbod van luxe woningen en exclusief vastgoed in Nederland. Professionele begeleiding bij elke stap van uw zoektocht naar uw droomhuis.',
+    images: [
+      {
+        url: '/images/ole-wonen-logo.png',
+        width: 800,
+        height: 600,
+        alt: 'Olé Wonen Logo'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Olé Wonen | Uw Betrouwbare Partner in Vastgoed',
+    description: 'Ontdek ons uitgebreide aanbod van luxe woningen en exclusief vastgoed in Nederland. Professionele begeleiding bij elke stap van uw zoektocht naar uw droomhuis.',
+    images: ['/images/ole-wonen-logo.png']
   }
 };
+
+// Initialize EmailJS with your public key
+emailjs.init('YOUR_PUBLIC_KEY'); // Vervang dit met je eigen public key
 
 export default function RootLayout({
   children,
