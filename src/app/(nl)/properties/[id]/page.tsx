@@ -3,8 +3,73 @@ import { supabase } from '@/lib/supabase';
 import { Property, CurrencyType } from '@/types/property';
 import { FaBed, FaBath, FaRuler, FaCheck } from 'react-icons/fa';
 import ImageGallery from '@/components/properties/ImageGallery';
+import { Metadata, ResolvingMetadata } from 'next';
 
-export default async function PropertyDetailPage({ params }: { params: { id: string } }) {
+type Props = {
+  params: { id: string }
+};
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // Fetch property data
+  const { data: propertyData } = await supabase
+    .from('properties')
+    .select(`
+      *,
+      property_titles (language, title),
+      property_descriptions (language, description),
+      property_images (url)
+    `)
+    .eq('id', params.id)
+    .single();
+
+  if (!propertyData) {
+    return {
+      title: 'Woning niet gevonden | Olé Wonen',
+      description: 'De opgevraagde woning kon niet worden gevonden.'
+    };
+  }
+
+  const title = propertyData.property_titles?.[0]?.title || 'Woning';
+  const description = propertyData.property_descriptions?.[0]?.description || '';
+  const firstImage = propertyData.property_images?.[0]?.url;
+  const price = new Intl.NumberFormat('nl-NL', {
+    style: 'currency',
+    currency: propertyData.currency || 'EUR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(propertyData.price);
+
+  const metaTitle = `${title} - ${price} | Olé Wonen`;
+  const metaDescription = description.length > 160 ? `${description.substring(0, 157)}...` : description;
+
+  return {
+    title: metaTitle,
+    description: metaDescription,
+    openGraph: {
+      title: metaTitle,
+      description: metaDescription,
+      images: firstImage ? [
+        {
+          url: firstImage,
+          width: 1200,
+          height: 630,
+          alt: title
+        }
+      ] : undefined
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: metaTitle,
+      description: metaDescription,
+      images: firstImage ? [firstImage] : undefined
+    }
+  };
+}
+
+export default async function PropertyDetailPage({ params }: Props) {
   const { data: propertyData, error } = await supabase
     .from('properties')
     .select(`
