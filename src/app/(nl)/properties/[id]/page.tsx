@@ -48,7 +48,13 @@ export async function generateMetadata(
 
   // Get first image and ensure it's an absolute URL
   const firstImage = propertyData.property_images?.[0]?.url;
-  const absoluteImageUrl = firstImage ? new URL(firstImage, process.env.NEXT_PUBLIC_BASE_URL).toString() : undefined;
+  const absoluteImageUrl = firstImage
+    ? firstImage.startsWith('http')
+      ? firstImage
+      : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${firstImage}`
+    : undefined;
+
+  console.log('Generated image URL:', absoluteImageUrl); // Debug logging
 
   // Create location string
   const location = [propertyData.town, propertyData.province, propertyData.costa].filter(Boolean).join(', ');
