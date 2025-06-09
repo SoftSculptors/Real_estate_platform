@@ -22,7 +22,7 @@ export default function Header() {
             >
               <Image
                 src="/images/ole-wonen-logo.png"
-                alt="Olé Wonen Logo"
+                alt="Olé Wonen - Uw betrouwbare partner voor het kopen van een huis in Spanje"
                 width={800}
                 height={266}
                 className="h-28 w-auto"

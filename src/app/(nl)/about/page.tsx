@@ -5,7 +5,7 @@ export default function AboutPage() {
     <main className="min-h-screen bg-[#FFFDF6] py-12 pt-28">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-slate-800 mb-4">Over Ons</h1>
+          <h1 className="text-4xl font-bold text-slate-800 mb-4">Over Olé Wonen</h1>
           <p className="text-lg text-slate-600 mb-8">Uw partner voor het vinden van uw droomhuis onder de Spaanse zon</p>
           
           <div className="bg-white rounded-xl shadow-sm p-8 mb-8 hover:shadow-md transition-shadow">
@@ -58,6 +58,6 @@ export default function AboutPage() {
 }
 
 export const metadata = {
-  title: 'Over Ons - Olé Wonen',
-  description: 'Ontdek hoe Olé Wonen u helpt bij het vinden van de juiste makelaar voor uw droomhuis in Spanje.'
+  title: 'Over Olé Wonen – Uw partner voor een woning in Spanje',
+  description: 'Leer Olé Wonen kennen – een onafhankelijke vastgoedconsultant die Vlamingen en Nederlanders begeleidt bij het kopen van een huis in Spanje. Ontdek onze missie, werkwijze en unieke reiskostengarantie.'
 };

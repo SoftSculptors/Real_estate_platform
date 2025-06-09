@@ -72,12 +72,12 @@ export async function generateMetadata(
     absoluteImageUrl
   });
 
-  // Create location string
-  const location = [propertyData.town, propertyData.province, propertyData.costa].filter(Boolean).join(', ');
+  // Create location string - simplified for title
+  const locationTitle = [propertyData.town, propertyData.costa].filter(Boolean).join(', ');
 
   // Create metadata title and description
-  const metaTitle = `${dutchTitle} - ${price} | ${location} | Olé Wonen`;
-  const metaDescription = `${dutchDescription}\nLocatie: ${location}\nPrijs: ${price}\nSlaapkamers: ${propertyData.beds} | Badkamers: ${propertyData.baths} | Oppervlakte: ${propertyData.built_area}m²`;
+  const metaTitle = `${dutchTitle} - ${price} | ${locationTitle} | Olé Wonen`;
+  const metaDescription = `Te koop: ${propertyData.type.toLowerCase()} (${propertyData.beds} slk, ${propertyData.built_area}m²) ${propertyData.distance_to_beach_m ? `op ${Math.round(propertyData.distance_to_beach_m / 100) / 10}km van het strand` : `in ${propertyData.town}`}. ${propertyData.new_build ? 'Nieuwbouw met ' : ''}${propertyData.features?.slice(0, 2).join(' & ')}. Vraagprijs ${price} – contacteer ons voor bezichtiging.`;
 
   return {
     title: metaTitle,

@@ -8,11 +8,11 @@ export default function WhyOleWonen() {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-[#5B3924] mb-4">
-            Olé Wonen – De juiste makelaar voor jouw woning in Spanje
+            Olé Wonen – Uw betrouwbare partner voor het kopen van vastgoed in Spanje
           </h2>
           <p className="text-lg text-[#2F2F2F] mb-8">
-            Olé Wonen is geen makelaar, maar een onafhankelijke consultant die jou helpt bij het vinden van de juiste makelaar in Spanje. 
-            Persoonlijk, betrouwbaar en zonder verkooppraatjes.
+            Olé Wonen begeleidt u bij het kopen van een huis in Spanje. Als onafhankelijke expert helpen wij u bij het vinden van de juiste makelaar en het complete aankoopproces van uw Spaanse woning. 
+            Persoonlijk, betrouwbaar en zonder verkoopdruk.
           </p>
         </div>
 
@@ -23,7 +23,7 @@ export default function WhyOleWonen() {
             </div>
             <h3 className="text-xl font-semibold text-[#5B3924] mb-3">Onafhankelijk advies</h3>
             <p className="text-[#2F2F2F]">
-              Wij zoeken en selecteren een betrouwbare makelaar die past bij jouw wensen en regio.
+              Wij selecteren zorgvuldig een betrouwbare makelaar die u begeleidt bij de aankoop van uw droomhuis in de gewenste Spaanse regio.
             </p>
           </div>
 
@@ -33,7 +33,7 @@ export default function WhyOleWonen() {
             </div>
             <h3 className="text-xl font-semibold text-[#5B3924] mb-3">Makelaar op maat</h3>
             <p className="text-[#2F2F2F]">
-              Geen standaardlijsten, maar een zorgvuldige koppeling aan een makelaar die bij jou én je budget past.
+              Geen standaard vastgoedaanbod, maar persoonlijk advies en een makelaar die perfect aansluit bij uw wensen en budget voor een woning in Spanje.
             </p>
           </div>
 
@@ -60,7 +60,7 @@ export default function WhyOleWonen() {
 
         <div className="mt-12 text-center">
           <p className="text-xl font-medium text-[#5B3924]">
-            Olé Wonen – Jouw eerste stap naar zorgeloos kopen in Spanje begint bij de juiste makelaar.
+            Olé Wonen – Uw eerste stap naar het zorgeloos kopen van vastgoed in Spanje. Ontdek hoe wij u kunnen helpen bij de aankoop van uw Spaanse droomhuis.
           </p>
         </div>
       </div>

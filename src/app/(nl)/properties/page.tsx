@@ -6,6 +6,11 @@ import PropertyCard from '@/components/properties/PropertyCard';
 import Filters from '@/components/properties/Filters';
 import { FaBed, FaBath, FaRulerCombined, FaEuroSign } from 'react-icons/fa';
 
+export const metadata = {
+  title: 'Woningen te koop in Spanje - Costa Blanca & Costa Cálida | Olé Wonen',
+  description: 'Blader door meer dan 1.000 woningen te koop in Spanje (Costa Blanca Noord/Zuid en Costa Cálida). Van moderne appartementen aan de kust tot luxe villa\'s met zeezicht – vind uw droomhuis via Olé Wonen.'
+};
+
 const ITEMS_PER_PAGE = 24;
 
 const PROPERTY_TYPES = [

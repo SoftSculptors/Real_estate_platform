@@ -13,9 +13,15 @@ export default function VideoHero() {
         playsInline
         className="absolute w-full h-full object-cover"
         style={{ filter: 'brightness(0.7)' }}
+        aria-label="Sfeervolle beelden van de Spaanse costa met prachtige villa's aan de kust"
+        poster="/images/hero-fallback.jpg"
       >
         <source src="/videos/2764953-hd_1920_1080_24fps.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+        <img 
+          src="/images/hero-fallback.jpg" 
+          alt="Prachtige villa met zeezicht aan de Costa Blanca - Uw droomhuis in Spanje wacht op u" 
+          className="absolute w-full h-full object-cover"
+        />
       </video>
 
       {/* Content */}
