@@ -159,55 +159,58 @@ export const metadata = {
   description: 'Olé Wonen helpt Vlamingen en Nederlanders hun droomhuis in Spanje te vinden. Persoonlijke begeleiding, onafhankelijk advies en een betrouwbaar makelaarsnetwerk – start hier uw zoektocht!',
   alternates: {
     canonical: 'https://www.olewonen.be/'
-  }
-};
-
-export const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'RealEstateAgent',
-  name: 'Olé Wonen',
-  image: 'https://www.olewonen.be/images/ole-wonen-logo.png',
-  '@id': 'https://www.olewonen.be',
-  url: 'https://www.olewonen.be',
-  telephone: '+32484378165',
-  email: 'info@annemansautomotive.com',
-  description: 'Olé Wonen is uw betrouwbare partner voor het vinden en kopen van uw droomhuis in Spanje. Gespecialiseerd in vastgoed in Costa Blanca Zuid, Costa Blanca Noord en Costa Cálida.',
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'BE',
-    addressLocality: 'België'
   },
-  areaServed: [
-    {
-      '@type': 'GeoCircle',
-      geoMidpoint: {
-        '@type': 'GeoCoordinates',
-        latitude: 38.3452,
-        longitude: -0.4815
-      },
-      description: 'Costa Blanca Zuid'
-    },
-    {
-      '@type': 'GeoCircle',
-      geoMidpoint: {
-        '@type': 'GeoCoordinates',
-        latitude: 38.8167,
-        longitude: 0.1167
-      },
-      description: 'Costa Blanca Noord'
-    },
-    {
-      '@type': 'GeoCircle',
-      geoMidpoint: {
-        '@type': 'GeoCoordinates',
-        latitude: 37.9892,
-        longitude: -1.1305
-      },
-      description: 'Costa Cálida'
-    }
-  ],
-  sameAs: [
-    'https://www.facebook.com/olewonen',
-    'https://www.instagram.com/olewonen'
-  ]
+  other: {
+    'application/ld+json': [
+      JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'RealEstateAgent',
+        name: 'Olé Wonen',
+        image: 'https://www.olewonen.be/images/ole-wonen-logo.png',
+        '@id': 'https://www.olewonen.be',
+        url: 'https://www.olewonen.be',
+        telephone: '+32484378165',
+        email: 'info@annemansautomotive.com',
+        description: 'Olé Wonen is uw betrouwbare partner voor het vinden en kopen van uw droomhuis in Spanje. Gespecialiseerd in vastgoed in Costa Blanca Zuid, Costa Blanca Noord en Costa Cálida.',
+        address: {
+          '@type': 'PostalAddress',
+          addressCountry: 'BE',
+          addressLocality: 'België'
+        },
+        areaServed: [
+          {
+            '@type': 'GeoCircle',
+            geoMidpoint: {
+              '@type': 'GeoCoordinates',
+              latitude: 38.3452,
+              longitude: -0.4815
+            },
+            description: 'Costa Blanca Zuid'
+          },
+          {
+            '@type': 'GeoCircle',
+            geoMidpoint: {
+              '@type': 'GeoCoordinates',
+              latitude: 38.8167,
+              longitude: 0.1167
+            },
+            description: 'Costa Blanca Noord'
+          },
+          {
+            '@type': 'GeoCircle',
+            geoMidpoint: {
+              '@type': 'GeoCoordinates',
+              latitude: 37.9892,
+              longitude: -1.1305
+            },
+            description: 'Costa Cálida'
+          }
+        ],
+        sameAs: [
+          'https://www.facebook.com/olewonen',
+          'https://www.instagram.com/olewonen'
+        ]
+      })
+    ]
+  }
 };
