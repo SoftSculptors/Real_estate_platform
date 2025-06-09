@@ -43,7 +43,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
         <div className="relative aspect-[16/10] overflow-hidden rounded-t-lg">
           <img
             src={mainImage}
-            alt={title}
+            alt={`${title} - ${property.beds} slaapkamer ${property.type.toLowerCase()} te ${property.price_freq === 'sale' ? 'koop' : 'huur'} in ${property.town}, ${property.province}`}
             className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
           />
           <div className="absolute top-4 right-4 z-10">

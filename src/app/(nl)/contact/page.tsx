@@ -34,6 +34,73 @@ export default function ContactPage() {
 }
 
 export const metadata = {
-  title: 'Contact - Spaanse Droomhuizen',
-  description: 'Neem contact met ons op voor meer informatie over onze diensten en beschikbare woningen in Spanje.'
+  title: 'Contact - Olé Wonen | Uw vastgoedpartner in Spanje',
+  description: 'Vragen over een huis kopen in Spanje? Neem contact op met Olé Wonen. Vul het formulier in of bel +32 484 37 81 65 – wij helpen u graag verder op weg naar uw droomwoning in Spanje.',
+  other: {
+    'application/ld+json': [
+      JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        '@id': 'https://olewonen.be',
+        'name': 'Olé Wonen',
+        'image': 'https://olewonen.be/images/logo.png',
+        'description': 'Olé Wonen is een onafhankelijke vastgoedconsultant die Vlamingen en Nederlanders begeleidt bij het kopen van een huis in Spanje.',
+        'url': 'https://olewonen.be',
+        'telephone': '+32 484 37 81 65',
+        'email': 'info@annemansautomotive.com',
+        'address': {
+          '@type': 'PostalAddress',
+          'streetAddress': 'Bokspane 23',
+          'addressLocality': 'Berendrecht',
+          'postalCode': '2040',
+          'addressCountry': 'BE'
+        },
+        'vatID': 'BE0787799357',
+        'areaServed': [
+          {
+            '@type': 'Place',
+            'name': 'Costa Blanca Zuid',
+            'address': {
+              '@type': 'PostalAddress',
+              'addressCountry': 'ES'
+            }
+          },
+          {
+            '@type': 'Place',
+            'name': 'Costa Blanca Noord',
+            'address': {
+              '@type': 'PostalAddress',
+              'addressCountry': 'ES'
+            }
+          },
+          {
+            '@type': 'Place',
+            'name': 'Costa Cálida',
+            'address': {
+              '@type': 'PostalAddress',
+              'addressCountry': 'ES'
+            }
+          }
+        ],
+        'openingHoursSpecification': {
+          '@type': 'OpeningHoursSpecification',
+          'dayOfWeek': [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday'
+          ],
+          'opens': '09:00',
+          'closes': '18:00'
+        },
+        'priceRange': '€€€',
+        'knowsLanguage': [
+          'nl',
+          'en',
+          'es'
+        ]
+      })
+    ]
+  }
 };
