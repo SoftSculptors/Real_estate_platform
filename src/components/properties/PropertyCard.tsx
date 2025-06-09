@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaBed, FaBath, FaRuler, FaMapMarkerAlt } from 'react-icons/fa';
 import type { Property, CurrencyType } from '@/types/property';
 
@@ -37,15 +38,20 @@ export default function PropertyCard({ property }: PropertyCardProps) {
       viewport={{ once: true }}
       whileHover={{ y: -5 }}
       transition={{ duration: 0.3 }}
-      className="summer-card group"
+      className="summer-card group min-h-[24rem] flex flex-col"
     >
       <Link href={`/properties/${property.id}`}>
         <div className="relative aspect-[16/10] overflow-hidden rounded-t-lg">
-          <img
-            src={mainImage}
-            alt={`${title} - ${property.beds} slaapkamer ${property.type.toLowerCase()} te ${property.price_freq === 'sale' ? 'koop' : 'huur'} in ${property.town}, ${property.province}`}
-            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              src={mainImage}
+              alt={`${title} - ${property.beds} slaapkamer ${property.type.toLowerCase()} te ${property.price_freq === 'sale' ? 'koop' : 'huur'} in ${property.town}, ${property.province}`}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              priority={property.new_build}
+              className="object-cover transform group-hover:scale-110 transition-transform duration-300"
+            />
+          </div>
           <div className="absolute top-4 right-4 z-10">
             <span className="summer-tag bg-[#F5C242] text-[#5B3924]">
               {priceLabel}
@@ -61,7 +67,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <div className="p-6">
+        <div className="p-6 flex-1 flex flex-col">
           <h3 className="text-xl font-semibold mb-2 text-[#5B3924] group-hover:text-[#F5C242] transition-colors">
             {title}
           </h3>
@@ -75,7 +81,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             {property.town}, {property.province}
           </p>
 
-          <div className="flex items-center justify-between text-[#2F2F2F] bg-[#FFFDF6] p-3 rounded-lg">
+          <div className="flex items-center justify-between text-[#2F2F2F] bg-[#FFFDF6] p-3 rounded-lg mt-auto">
             <div className="flex items-center space-x-2">
               <FaBed className="w-4 h-4 text-summer-500" />
               <span>{property.beds}</span>
