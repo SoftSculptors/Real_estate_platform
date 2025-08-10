@@ -91,11 +91,11 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
 
                       <div className="mt-10 space-y-6">
                         <a
-                          href="tel:+31612345678"
+                          href="tel:+32484378165"
                           className="flex items-center space-x-2 text-[#5B3924] hover:text-[#F5C242]"
                         >
                           <FaPhone className="h-5 w-5" />
-                          <span>+31 6 1234 5678</span>
+                          <span>+32 484 37 81 65</span>
                         </a>
                         <a
                           href="mailto:info@annemansautomotive.com"
