@@ -62,6 +62,16 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} Olé Wonen. Alle rechten voorbehouden.</p>
+          <p className="mt-2">
+            <a 
+              href="https://lynova.be" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-white transition-colors"
+            >
+              Website ontwikkeld door Lynova
+            </a>
+          </p>
         </div>
       </div>
     </footer>

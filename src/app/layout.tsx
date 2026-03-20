@@ -22,6 +22,20 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico'
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'google7dc0977b88899b5e',
+  },
   openGraph: {
     type: 'website',
     locale: 'nl_NL',
