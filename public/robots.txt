@@ -5,7 +5,7 @@ Allow: /
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://www.olewonen.nl/sitemap.xml
+Sitemap: https://www.olewonen.be/sitemap.xml
 
 # Block unnecessary paths
 Disallow: /api/
